@@ -7,7 +7,7 @@ use App\Repository\EventoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* CursoSymfony\EventosBundle\Entity
+* CursoSymfony\EventoBundle\Entity
 *
 * @ORM\Table(name="evento")
 * @ORM\Entity
@@ -37,12 +37,12 @@ class Evento
     private $descripcion;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $fecha;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $hora;
 
@@ -57,18 +57,18 @@ class Evento
     private $idioma;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Disertante", inversedBy="eventos")
+     * @ORM\ManyToOne(targetEntity="Disertante", inversedBy="evento")
      * @ORM\JoinColumn(name="disertante_id", referencedColumnName="id")
      */
-    protected $disertante;
+    private $disertante;
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="eventos")
+     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="evento")
      * @ORM\JoinTable(name="evento_usuario",
      * joinColumns={@ORM\JoinColumn(name="evento_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
      * )
      */
-    protected $usuarios;
+    private $usuarios;
 
     public function getId(): ?int
     {

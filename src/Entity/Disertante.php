@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DisertanteRepository::class)
+ * @ORM\Table(name="Disertante")
  */
 class Disertante
 {
@@ -38,6 +39,11 @@ class Disertante
     private $telefono;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $direccion;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $url;
@@ -60,7 +66,7 @@ class Disertante
     /**
      * @ORM\OneToMany(targetEntity="Evento", mappedBy="disertante")
      */
-    protected $eventos;
+    private $eventos;
 
     public function getId(): ?int
     {
@@ -159,6 +165,18 @@ class Disertante
     public function setLinkedin(?string $linkedin): self
     {
         $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getDireccion(): ?string
+    {
+        return $this->direccion;
+    }
+
+    public function setDireccion(string $direccion): self
+    {
+        $this->direccion = $direccion;
 
         return $this;
     }

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\EventoClase;
+use App\Entity\Evento;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EventoClase>
+ * @extends ServiceEntityRepository<Evento>
  *
- * @method EventoClase|null find($id, $lockMode = null, $lockVersion = null)
- * @method EventoClase|null findOneBy(array $criteria, array $orderBy = null)
- * @method EventoClase[]    findAll()
- * @method EventoClase[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Evento|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Evento|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Evento[]    findAll()
+ * @method Evento[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EventoClaseRepository extends ServiceEntityRepository
+class EventoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventoClase::class);
+        parent::__construct($registry, Evento::class);
     }
 
-    public function add(EventoClase $entity, bool $flush = false): void
+    public function add(Evento $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EventoClaseRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EventoClase $entity, bool $flush = false): void
+    public function remove(Evento $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EventoClaseRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return EventoClase[] Returns an array of EventoClase objects
+//     * @return Evento[] Returns an array of Evento objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EventoClaseRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?EventoClase
+//    public function findOneBySomeField($value): ?Evento
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

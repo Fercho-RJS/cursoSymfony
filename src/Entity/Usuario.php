@@ -55,7 +55,7 @@ class Usuario
     /**
      * @ORM\ManyToMany(targetEntity="Evento", mappedBy="usuarios")
      */
-    protected $eventos;
+    private $eventos;
 
     public function getId(): ?int
     {

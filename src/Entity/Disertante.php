@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\DisertanteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -66,7 +65,7 @@ class Disertante
     /**
      * @ORM\OneToMany(targetEntity="Evento", mappedBy="disertante")
      */
-    private $eventos;
+    private $evento;
 
     public function getId(): ?int
     {

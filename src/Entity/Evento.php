@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Common\Util;
 use App\Repository\EventoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* CursoSymfony\EventoBundle\Entity
-*
-* @ORM\Table(name="evento")
-* @ORM\Entity
-*/
+ * @ORM\Table(name="evento")
+ * @ORM\Entity(repositoryClass=EventoRepository::class)
+ */
 class Evento
 {
     /**
@@ -61,14 +61,44 @@ class Evento
      * @ORM\JoinColumn(name="disertante_id", referencedColumnName="id")
      */
     private $disertante;
+
     /**
      * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="evento")
      * @ORM\JoinTable(name="evento_usuario",
-     * joinColumns={@ORM\JoinColumn(name="evento_id", referencedColumnName="id")},
-     * inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="evento_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
      * )
+     * @var Collection<int, Usuario>
      */
     private $usuarios;
+
+    public function __construct()
+    {
+        $this->usuarios = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection<Usuario>
+     */
+    public function getUsuarios(): Collection
+    {
+        return $this->usuarios;
+    }
+
+    public function addUsuario(Usuario $usuario): self
+    {
+        if (!$this->usuarios->contains($usuario)) {
+            $this->usuarios[] = $usuario;
+        }
+
+        return $this;
+    }
+
+    public function removeUsuario(Usuario $usuario): self
+    {
+        $this->usuarios->removeElement($usuario);
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -80,7 +110,7 @@ class Evento
         return $this->titulo;
     }
 
-    public function setTitulo($titulo)
+    public function setTitulo($titulo): self
     {
         $this->titulo = $titulo;
         $this->setSlug(Util::slugify($this->titulo));
@@ -95,7 +125,6 @@ class Evento
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -107,7 +136,6 @@ class Evento
     public function setDescripcion(string $descripcion): self
     {
         $this->descripcion = $descripcion;
-
         return $this;
     }
 
@@ -116,10 +144,9 @@ class Evento
         return $this->fecha;
     }
 
-    public function setFecha(\DateTimeInterface $fecha): self
+    public function setFecha(?\DateTimeInterface $fecha): self
     {
         $this->fecha = $fecha;
-
         return $this;
     }
 
@@ -128,10 +155,9 @@ class Evento
         return $this->hora;
     }
 
-    public function setHora(\DateTimeInterface $hora): self
+    public function setHora(?\DateTimeInterface $hora): self
     {
         $this->hora = $hora;
-
         return $this;
     }
 
@@ -143,7 +169,6 @@ class Evento
     public function setDuracion(?int $duracion): self
     {
         $this->duracion = $duracion;
-
         return $this;
     }
 
@@ -155,7 +180,17 @@ class Evento
     public function setIdioma(string $idioma): self
     {
         $this->idioma = $idioma;
+        return $this;
+    }
 
+    public function getDisertante(): ?Disertante
+    {
+        return $this->disertante;
+    }
+
+    public function setDisertante(?Disertante $disertante): self
+    {
+        $this->disertante = $disertante;
         return $this;
     }
 }

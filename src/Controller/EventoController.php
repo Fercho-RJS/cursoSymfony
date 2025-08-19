@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Evento;
 use DateTime;
 use Symfony\Component\Validator\Constraints\Time;
+use App\Repository;
 
 class EventoController extends AbstractController
 {
@@ -16,9 +17,26 @@ class EventoController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('evento/index.html.twig', [
+        return $this->render('evento/eventos.html.twig', [
             'controller_name' => 'EventoController',
         ]);
+    }
+
+    /**
+     * @Route("/eventos", name="app_eventos_listar")
+     */
+    public function eventosAction(): Response
+    {
+        // Obtener el EntityManager
+        $em = $this->getDoctrine()->getManager();
+        
+        $eventos = $em->getRepository(Evento::class)->findEventosAlfabeticamente();
+
+        return $this->render('evento/eventos.html.twig', [
+            'eventos' => $eventos
+        ]);
+
+        // return('ruta/de/la/planilla' , ['datoNombre' => $variableDatoNombre])
     }
 
     /**
@@ -29,18 +47,18 @@ class EventoController extends AbstractController
         $evento = new Evento;
 
         //Hidratado
-        $evento -> setTitulo('Introducción al Symfony 5');
-        $evento -> setDuracion(20);
-        $evento -> setIdioma('Español (Argentina)');
-        $evento -> setDescripcion('Aguante River');
+        $evento->setTitulo('Introducción al Symfony 5');
+        $evento->setDuracion(20);
+        $evento->setIdioma('Español (Argentina)');
+        $evento->setDescripcion('Aguante River');
 
         //em = entity manager > $em = $this -> getDoctrine() -> getManager();
 
-        $em = $this -> getDoctrine() -> getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Persistimos el objeto en la BDD.
-        $em -> persist($evento); //Lo manda al $em
-        $em -> flush(); //
+        $em->persist($evento); //Lo manda al $em
+        $em->flush(); //
 
         // dump($evento);
         exit;

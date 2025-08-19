@@ -21,6 +21,24 @@ class EventoRepository extends ServiceEntityRepository
         parent::__construct($registry, Evento::class);
     }
 
+    // Función personalizada que hace una consulta DQL para traer los eventos ordenados alfabéticamente - 19/08/2025
+    public function queryEventosAlfabeticamente()
+    {
+        $em = $this->getEntityManager();
+        //En repositori extiende de otro lugar; cuando creo en Controller, AbstractController usa getDoctrine y GetManager.
+        //Desde repository, utiliza otras librerías, por eso solo usa getEntityManager solamente.
+
+        $dql = "SELECT e FROM App\Entity\Evento e ORDER BY e.titulo ASC";
+        
+        return $em->createQuery($dql);
+    }
+
+    public function findEventosAlfabeticamente()
+    {
+        return $this->queryEventosAlfabeticamente()->getResult(); //Con getResult obtenemos el resultado de la consulta.
+    }
+
+
     public function add(Evento $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

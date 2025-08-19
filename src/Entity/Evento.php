@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Common\Util;
 use App\Repository\EventoRepository;
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -192,5 +193,12 @@ class Evento
     {
         $this->disertante = $disertante;
         return $this;
+    }
+
+    //EN REPOSITORY VAN LOS DQL.
+
+    public function getHoraFinalizacion()
+    {
+        return $this->hora->add(new \DateInterval('PT' . $this->duracion . 'M'));
     }
 }

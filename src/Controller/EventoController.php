@@ -23,6 +23,18 @@ class EventoController extends AbstractController
     }
 
     /**
+     * @Route("/evento/{slug}", name="app_evento_slug")
+     */
+    public function eventoAction($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $eventoSlug = $em->getRepository(Evento::class)->findOneBy(['slug' => $slug]);
+        return $this->render('evento/eventos.html.twig', [
+            'eventos' => $eventoSlug
+        ]);
+    }
+
+    /**
      * @Route("/eventos", name="app_eventos_listar")
      */
     public function eventosAction(): Response

@@ -12,7 +12,7 @@ use App\Entity\Evento;
 class DefaultController extends AbstractController
 {
   /**
-   * @Route("/app_portada", name="app_portada")
+   * @Route("/portada", name="app_portada")
    */
   public function portadaAction()
   {

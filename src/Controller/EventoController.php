@@ -23,25 +23,30 @@ class EventoController extends AbstractController
     }
 
     /**
-     * @Route("/evento/{slug}", name="app_evento_slug")
+     * @Route("/evento/{slug}", name="app_evento")
      */
-    public function eventoAction($slug): Response
+    public function eventoAction($slug) //: Response
     {
         $em = $this->getDoctrine()->getManager();
-        $eventoSlug = $em->getRepository(Evento::class)->findOneBy(['slug' => $slug]);
-        return $this->render('evento/eventos.html.twig', [
-            'eventos' => $eventoSlug
-        ]);
+        $evento = $em->getRepository(Evento::class)->findOneBy(['slug' => $slug]);
+
+        if (!$evento) {
+            throw $this->createNotFoundException('No existe el evento solicitado...');
+        } else {
+            return $this->render('evento/evento.html.twig', [
+                'evento' => $evento
+            ]);
+        }
     }
 
     /**
-     * @Route("/eventos", name="app_eventos_listar")
+     * @Route("/eventos", name="app_eventos")
      */
     public function eventosAction(): Response
     {
         // Obtener el EntityManager
         $em = $this->getDoctrine()->getManager();
-        
+
         $eventos = $em->getRepository(Evento::class)->findEventosAlfabeticamente();
 
         return $this->render('evento/eventos.html.twig', [

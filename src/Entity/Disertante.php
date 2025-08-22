@@ -179,4 +179,13 @@ class Disertante
 
         return $this;
     }
+
+    public function getNombreCompleto(){
+        return $this->getNombre() . ' ' . $this->getApellidos();
+    }
+
+    public function __toString()
+    {
+        return $this->getNombreCompleto();
+    }
 }

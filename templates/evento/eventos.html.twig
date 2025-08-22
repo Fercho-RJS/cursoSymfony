@@ -11,7 +11,7 @@
 <div>
 <ul>
     {% for evento in eventos %}
-        <a href='#RUTA_A_DETALLE'>{{ evento.titulo }}</a>
+        <a href='{{ path('app_evento', {'slug': evento.slug} ) }}'>{{ evento.titulo }}</a>
         <p>{{ evento.descripcion }}</p>
         <p><b>Hora comienzo: </b> {{ evento.hora|date('H:i') }} | {{ evento.horaFinalizacion|date('H:i') }}
         <hr>

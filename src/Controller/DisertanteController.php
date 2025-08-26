@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\Time;
 use App\Repository;
 use App\Entity\Disertante;
 use App\Repository\DisertanteRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class DisertanteController extends AbstractController
 {
@@ -32,10 +33,25 @@ class DisertanteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $disertantes = $em->getRepository(Disertante::class)->findDisertantesAlfabeticamente();
 
-        return $this->render('disertante/disertante.html.twig', [
+        return $this->render('disertante/disertantes.html.twig', [
             'disertantes' => $disertantes
         ]);
+    }
 
-        // return('ruta/de/la/planilla' , ['datoNombre' => $variableDatoNombre])
+    /**
+     * @Route("/disertante/{id}", name="app_disertante")
+     */
+    public function detalle($id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $disertante = $em->getRepository(Disertante::class)->find($id);
+
+        if (!$disertante) {
+            throw $this->createNotFoundException('Disertante no encontrado');
+        }
+
+        return $this->render('disertante/disertante.html.twig', [
+            'disertante' => $disertante
+        ]);
     }
 }

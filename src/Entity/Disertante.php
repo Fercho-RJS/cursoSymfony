@@ -3,6 +3,8 @@
 namespace App\Entity;
 use App\Repository\DisertanteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=DisertanteRepository::class)
@@ -63,9 +65,9 @@ class Disertante
     private $linkedin;
 
     /**
-     * @ORM\OneToMany(targetEntity="Evento", mappedBy="disertante")
+     * @ORM\OneToMany(targetEntity="App\Entity\Evento", mappedBy="disertante")
      */
-    private $evento;
+    private $eventos;
 
     public function getId(): ?int
     {
@@ -178,6 +180,10 @@ class Disertante
         $this->direccion = $direccion;
 
         return $this;
+    }
+
+    public function getEventos(): Collection {
+        return $this->eventos;
     }
 
     public function getNombreCompleto(){

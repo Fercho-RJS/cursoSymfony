@@ -13,7 +13,7 @@ use App\Repository;
 class EventoController extends AbstractController
 {
     /**
-     * @Route("/evento", name="app_evento")
+     * @Route("/evento", name="app_render_eventos")
      */
     public function index(): Response
     {

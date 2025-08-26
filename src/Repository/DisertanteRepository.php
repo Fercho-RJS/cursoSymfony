@@ -41,7 +41,7 @@ class DisertanteRepository extends ServiceEntityRepository
 
     public function findDisertantesAlfabeticamente()
     {
-        return $this->getEntityManager()->createQuery('SELECT d FROM App\Entity\Disertante d ORDER BY d.nombre ASC')->getResult();
+        return $this->getEntityManager()->createQuery('SELECT d, e FROM App\Entity\Disertante d JOIN d.eventos e ORDER BY d.nombre ASC')->getResult();
     }
 
     //    /**

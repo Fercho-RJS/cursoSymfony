@@ -45,4 +45,23 @@ class AdminEventoController extends AbstractController
             'eventos' => $eventos,
         ]);
     }
+
+    /**
+     * @Route("/evento/inscriptos/{idEvento}", name="app_admin_evento_inscriptos")
+     */
+    public function inscriptosAction($idEvento)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // Buscar el evento por ID
+        $evento = $em->getRepository(Evento::class)->find($idEvento);
+
+        if (!$evento) {
+            throw $this->createNotFoundException('Evento no encontrado');
+        }
+
+        return $this->render('adminEvento/inscriptos.html.twig', [
+            'evento' => $evento
+        ]);
+    }
 }

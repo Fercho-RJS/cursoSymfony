@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
@@ -56,6 +57,11 @@ class Usuario
      * @ORM\ManyToMany(targetEntity="Evento", mappedBy="usuarios")
      */
     private $eventos;
+
+    public function getEventos(): Collection
+    {
+        return $this->eventos;
+    }
 
     public function getId(): ?int
     {

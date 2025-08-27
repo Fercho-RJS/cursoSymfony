@@ -78,9 +78,6 @@ class Evento
         $this->usuarios = new ArrayCollection();
     }
 
-    /**
-     * @return Collection<Usuario>
-     */
     public function getUsuarios(): Collection
     {
         return $this->usuarios;

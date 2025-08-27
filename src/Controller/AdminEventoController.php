@@ -12,7 +12,7 @@ use App\Repository;
 use App\Repository\EventoRepository;
 
 /**
- * @Route("/admin", name="app_admin")
+ * @Route("/admin")
  */
 class AdminEventoController extends AbstractController
 {
@@ -47,14 +47,14 @@ class AdminEventoController extends AbstractController
     }
 
     /**
-     * @Route("/evento/inscriptos/{idEvento}", name="app_admin_evento_inscriptos")
+     * @Route("/evento/inscriptos/{id}", name="app_admin_evento_inscriptos")
      */
-    public function inscriptosAction($idEvento)
+    public function inscriptosAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
         // Buscar el evento por ID
-        $evento = $em->getRepository(Evento::class)->find($idEvento);
+        $evento = $em->getRepository(Evento::class)->find($id);
 
         if (!$evento) {
             throw $this->createNotFoundException('Evento no encontrado');

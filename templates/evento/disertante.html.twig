@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Disertante{% endblock %}
+
+{% block body %}
+  <h1>Información del Disertante</h1>
+  <ul>
+    <li><strong>Nombre:</strong> {{ disertante.nombre }}</li>
+    <li><strong>Apellidos:</strong> {{ disertante.apellidos }}</li>
+    <li><strong>Email:</strong> {{ disertante.email }}</li>
+    {# <li><strong>Especialidad:</strong> {{ disertante.especialidad }}</li> #}
+  </ul>
+{% endblock %}
+

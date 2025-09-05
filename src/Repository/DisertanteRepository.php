@@ -44,6 +44,14 @@ class DisertanteRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery('SELECT d, e FROM App\Entity\Disertante d JOIN d.eventos e ORDER BY d.nombre ASC')->getResult();
     }
 
+    public function findDisertantesConEventosPorId($id): ?Disertante
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT d, e FROM App\Entity\Disertante d JOIN d.eventos e WHERE d.id = :id'
+        )
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
     //    /**
     //     * @return DisertanteClass[] Returns an array of DisertanteClass objects
     //     */

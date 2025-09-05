@@ -5,13 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Common\Util;
-use App\Repository\EventoRepository;
 use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="evento")
- * @ORM\Entity(repositoryClass=EventoRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\EventoRepository::class)
  */
 class Evento
 {
@@ -58,8 +56,8 @@ class Evento
     private $idioma;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Disertante", inversedBy="evento")
-     * @ORM\JoinColumn(name="disertante_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Disertante", inversedBy="eventos")
+     * @ORM\JoinColumn(name="disertante_id", referencedColumnName="id", nullable=true)
      */
     private $disertante;
 
@@ -193,9 +191,31 @@ class Evento
     }
 
     //EN REPOSITORY VAN LOS DQL.
+    //EN REPOSITORY VAN LOS DQL.
 
     public function getHoraFinalizacion()
     {
-        return $this->hora->add(new \DateInterval('PT' . $this->duracion . 'M'));
+        if ($this->hora && $this->duracion) {
+            $horaFinal = (clone $this->hora);
+            $horaFinal->add(new \DateInterval('PT' . $this->duracion . 'M'));
+            return $horaFinal;
+        }
+        return null;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nombre;
+
+    public function getNombre(): ?string
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre(?string $nombre): self
+    {
+        $this->nombre = $nombre;
+        return $this;
     }
 }

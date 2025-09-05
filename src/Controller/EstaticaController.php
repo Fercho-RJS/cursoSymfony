@@ -5,9 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/sitio", name="app_site")
+ * @Route("/sitio", name="app_site", defaults={"pagina"="patrocinadores"})
  */
 class EstaticaController extends AbstractController
 {
@@ -18,8 +19,10 @@ class EstaticaController extends AbstractController
      *     requirements={"pagina"="patrocinadores|licencia|condiciones|privacidad"}
      * )
      */
-    
-    public function estaticaAction($pagina = 'patrocinadores'){
-        return $this -> render('static/' . $pagina . '.html.twig');
-    }   
+
+    public function estaticaAction(Request $request){
+        $pagina = $request->attributes->get('pagina', 'patrocinadores');
+
+        return $this->render('static/' . $pagina . '.html.twig');
+    }
 }

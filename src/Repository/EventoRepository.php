@@ -77,6 +77,14 @@ class EventoRepository extends ServiceEntityRepository
         }
     }
 
+    //Creación de la función para encontrar un evento a partir del slug del evento.
+    public function findEventoPorSlug($value): ?Evento
+    {
+        return $this->getEntityManager()->createQuery('SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d WHERE e.slug = :val')
+            ->setParameter('val', $value)
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Evento[] Returns an array of Evento objects
     //     */

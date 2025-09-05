@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Evento;
 use DateTime;
-use Symfony\Component\Validator\Constraints\Time;
-use App\Repository;
 
 class EventoController extends AbstractController
 {
@@ -25,18 +23,19 @@ class EventoController extends AbstractController
     /**
      * @Route("/evento/{slug}", name="app_evento")
      */
-    public function eventoAction($slug) //: Response
+    public function eventoAction(string $slug): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $evento = $em->getRepository(Evento::class)->findOneBy(['slug' => $slug]);
+        $evento = $this->getDoctrine()
+                       ->getRepository(Evento::class)
+                       ->findEventoPorSlug($slug);
 
         if (!$evento) {
             throw $this->createNotFoundException('No existe el evento solicitado...');
-        } else {
-            return $this->render('evento/evento.html.twig', [
-                'evento' => $evento
-            ]);
         }
+
+        return $this->render('evento/evento.html.twig', [
+            'evento' => $evento,
+        ]);
     }
 
     /**
@@ -44,16 +43,13 @@ class EventoController extends AbstractController
      */
     public function eventosAction(): Response
     {
-        // Obtener el EntityManager
-        $em = $this->getDoctrine()->getManager();
-
-        $eventos = $em->getRepository(Evento::class)->findEventosAlfabeticamente();
+        $eventos = $this->getDoctrine()
+                        ->getRepository(Evento::class)
+                        ->findEventosAlfabeticamente();
 
         return $this->render('evento/eventos.html.twig', [
-            'eventos' => $eventos
+            'eventos' => $eventos,
         ]);
-
-        // return('ruta/de/la/planilla' , ['datoNombre' => $variableDatoNombre])
     }
 
     /**
@@ -61,26 +57,34 @@ class EventoController extends AbstractController
      */
     public function newAction(): Response
     {
-        $evento = new Evento;
-
-        //Hidratado
+        $evento = new Evento();
         $evento->setTitulo('Introducción al Symfony 5');
         $evento->setDuracion(20);
         $evento->setIdioma('Español (Argentina)');
         $evento->setDescripcion('Aguante River');
 
-        //em = entity manager > $em = $this -> getDoctrine() -> getManager();
-
         $em = $this->getDoctrine()->getManager();
+        $em->persist($evento);
+        $em->flush();
 
-        //Persistimos el objeto en la BDD.
-        $em->persist($evento); //Lo manda al $em
-        $em->flush(); //
+        return new Response('Evento creado con ID: ' . $evento->getId());
+    }
 
-        // dump($evento);
-        exit;
-        return $this->render('evento/index.html.twig', [
-            'controller_name' => 'EventoController',
+    /**
+     * @Route("/evento/disertante/{slug}", name="app_disertante_by_slug")
+     */
+    public function disertanteBySlugAction(string $slug): Response
+    {
+        $evento = $this->getDoctrine()
+                       ->getRepository(Evento::class)
+                       ->findOneBy(['slug' => $slug]);
+
+        if (!$evento || !$evento->getDisertante()) {
+            throw $this->createNotFoundException('No existe el disertante para el evento solicitado...');
+        }
+
+        return $this->render('evento/disertante.html.twig', [
+            'disertante' => $evento->getDisertante(),
         ]);
     }
 }

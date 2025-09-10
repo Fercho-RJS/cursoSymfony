@@ -4,11 +4,17 @@
 		<p>
 			<strong>Symfony 2025</strong>
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ras varius est ac mi aliquet consectetur.
-						Morbi et massa vel felis malesuada placerat molestie ac est.
+									Morbi et massa vel felis malesuada placerat molestie ac est.
 		</p>
 
 		<!-- MENSAJES FLASH AQUÍ (utilizar <div class=”flash”> </div>) -->
 
+		<div class="flash">
+			{% for mensaje in app.flashes('info') %}
+				<div class="alert alert-info">{{ mensaje }}</div>
+			{% endfor %}
+		</div>
+		
 		<div style="display: flex;">
 			<div class="grid_6 alpha">
 				<ul>

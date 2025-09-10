@@ -48,7 +48,9 @@ class EventoRepository extends ServiceEntityRepository
         //En repositori extiende de otro lugar; cuando creo en Controller, AbstractController usa getDoctrine y GetManager.
         //Desde repository, utiliza otras librerías, por eso solo usa getEntityManager solamente.
 
-        $dql = "SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d ORDER BY e.titulo ASC"; //1.61ms
+        //$dql = "SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d ORDER BY e.titulo ASC"; //1.61ms
+        //Ahora lo tengo que optimizar
+        $dql = "SELECT e, d, u FROM App\Entity\Evento e LEFT JOIN e.disertante d LEFT JOIN e.usuarios u ORDER BY e.titulo ASC"; //2.11ms
         // $dql = "SELECT e FROM App\Entity\Evento e ORDER BY e.titulo ASC"; //3.24ms
         return $em->createQuery($dql);
     }

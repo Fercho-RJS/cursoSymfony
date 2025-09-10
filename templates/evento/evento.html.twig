@@ -1,19 +1,26 @@
 <html>
 	<!--  Borrar luego  -->
+
 	<body>
 		<h1>{{ evento.titulo }}</h1>
 		<p>{{ evento.descripcion }}</p>
 		<div class='grid-2-alpha'>
-      <strong>Fecha</strong> {{ evento.fecha|date('d M') }}
-    </div>
-    <div class='grid-2'>
-      <strong>Hora</strong> {{ evento.hora|date('H:i') }}
-    </div>
-    <div class='grid-2'>
-      <strong>Idioma</strong> {{ evento.idioma }}
-    </div>
-    <div class='grid-3'>
-      <strong>Disertante</strong> <a href="#R_A_D">{{ evento.disertante }}</a> 
-    </div>
+			<strong>Fecha</strong>
+			{{ evento.fecha|date('d M') }}
+		</div>
+		<div class='grid-2'>
+			<strong>Hora</strong>
+			{{ evento.hora|date('H:i') }}
+		</div>
+		<div class='grid-2'>
+			<strong>Idioma</strong>
+			{{ evento.idioma }}
+		</div>
+		<div class='grid-3'>
+			<strong>Disertante</strong>
+      <!-- Ahora ruteamos al path para remover el evento -->
+			<a href="{{ path('app_admin_evento_borrar', { 'id': evento.id }) }}">{{ evento.disertante }}</a>
+		</div>
 	</body>
-</html><!--  Borrar luego  -->
+</html>
+<!--  Borrar luego  -->

@@ -50,7 +50,7 @@ class EventoRepository extends ServiceEntityRepository
 
         //$dql = "SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d ORDER BY e.titulo ASC"; //1.61ms
         //Ahora lo tengo que optimizar
-        $dql = "SELECT e, d, u FROM App\Entity\Evento e LEFT JOIN e.disertante d LEFT JOIN e.usuarios u ORDER BY e.titulo ASC"; //2.11ms
+        $dql = "SELECT e, u FROM App\Entity\Evento e LEFT JOIN e.usuarios u ORDER BY e.titulo ASC"; //2.11ms
         // $dql = "SELECT e FROM App\Entity\Evento e ORDER BY e.titulo ASC"; //3.24ms
         return $em->createQuery($dql);
     }
@@ -84,6 +84,15 @@ class EventoRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->createQuery('SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d WHERE e.slug = :val')
             ->setParameter('val', $value)
+            ->getOneOrNullResult();
+    }
+
+    public function findEventoConDisertantePorSlug($slug): ?Evento
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT e, d FROM App\Entity\Evento e JOIN e.disertante d WHERE e.slug = :slug'
+        )
+            ->setParameter('slug', $slug)
             ->getOneOrNullResult();
     }
 

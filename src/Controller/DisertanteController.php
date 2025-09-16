@@ -39,7 +39,7 @@ class DisertanteController extends AbstractController
     }
 
     /**
-     * @Route("/disertante/{id}", name="app_disertante")
+     * @Route("/disertante/{id}", name="app_disertante_por_id")
      */
     public function detalle($id): Response
     {
@@ -54,4 +54,22 @@ class DisertanteController extends AbstractController
             'disertante' => $disertante
         ]);
     }
+
+    /**
+     * @Route("/disertante/slug/{slug}", name="app_disertante_por_slug")
+     */
+    public function detallePorSlug($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $disertante = $em->getRepository(Disertante::class)->findDisertanteConEventosPorSlug($slug);
+
+        if (!$disertante) {
+            throw $this->createNotFoundException('Disertante no encontrado');
+        }
+
+        return $this->render('disertante/disertante.html.twig', [
+            'disertante' => $disertante
+        ]);
+    }
+
 }

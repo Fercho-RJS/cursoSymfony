@@ -24,22 +24,18 @@ class EventoController extends AbstractController
     /**
      * @Route("/evento/{slug}", name="app_evento")
      */
-    public function eventoAction(Request $request)
+    public function eventoAction(Request $request, string $slug): Response
     {
-        $slug = $request->attributes->get('slug');
-
-        $evento = $this->getDoctrine()
-                       ->getRepository(Evento::class)
-                       ->findEventoPorSlug($slug);
-
+        $em = $this->getDoctrine()->getManager();
+        $evento = $em->getRepository(Evento::class)->findEventoConDisertantePorSlug($slug);
 
         if (!$evento) {
-            throw $this->createNotFoundException('No existe el evento solicitado...');
-        } else {
-            $this->addFlash('info', 'El evento fue encontrado correctamente: ' . $evento->getTitulo());
+            throw $this->createNotFoundException('Evento no encontrado');
         }
+
         return $this->render('evento/evento.html.twig', [
             'evento' => $evento,
+            'disertante' => $evento->getDisertante()
         ]);
     }
 
@@ -49,8 +45,8 @@ class EventoController extends AbstractController
     public function eventosAction(): Response
     {
         $eventos = $this->getDoctrine()
-                        ->getRepository(Evento::class)
-                        ->findEventosAlfabeticamente();
+            ->getRepository(Evento::class)
+            ->findEventosAlfabeticamente();
 
         return $this->render('evento/eventos.html.twig', [
             'eventos' => $eventos,
@@ -81,8 +77,8 @@ class EventoController extends AbstractController
     public function disertanteBySlugAction(string $slug): Response
     {
         $evento = $this->getDoctrine()
-                       ->getRepository(Evento::class)
-                       ->findOneBy(['slug' => $slug]);
+            ->getRepository(Evento::class)
+            ->findOneBy(['slug' => $slug]);
 
         if (!$evento || !$evento->getDisertante()) {
             throw $this->createNotFoundException('No existe el disertante para el evento solicitado...');

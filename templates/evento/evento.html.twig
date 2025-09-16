@@ -19,7 +19,7 @@
 		<div class='grid-3'>
 			<strong>Disertante</strong>
       <!-- Ahora ruteamos al path para remover el evento -->
-			<a href="{{ path('app_admin_evento_borrar', { 'id': evento.id }) }}">{{ evento.disertante }}</a>
+			<a href="{{ path('app_disertante_por_slug', { 'slug': evento.slug }) }}">{{ evento.disertante }}</a>
 		</div>
 	</body>
 </html>

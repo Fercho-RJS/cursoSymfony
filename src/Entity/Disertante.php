@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass=DisertanteRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\DisertanteRepository::class)
  * @ORM\Table(name="disertante")
  */
 class Disertante
@@ -194,4 +194,6 @@ class Disertante
     {
         return $this->getNombreCompleto();
     }
+
+    
 }

@@ -62,7 +62,7 @@ class Evento
     private $disertante;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="evento")
+     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="eventos")
      * @ORM\JoinTable(name="evento_usuario",
      *      joinColumns={@ORM\JoinColumn(name="evento_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}

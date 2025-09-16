@@ -1,19 +1,48 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>{% block title %}Symfony 2025{% endblock %} | Eventos</title>
+<meta name="description" content="{% block metadesc %}Symfony 5{% endblock %}"/>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<link href="{{ asset('css/reset.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('css/960.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css"/>
+
+{% block stylesheets %}
+
+{% endblock %}
+
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body id="{% block pageid %}{% endblock %}">
+<header>
+<div class="container_16">
+{% block header %}
+{% endblock %}
+</div>
+</header>
+
+<div class="container_16">
+{% block body %}
+
+{% endblock %}
+
+
+<footer>
+{% block footer %}
+<a href="{{ path('app_estatica', { 'pagina': 'licencia'}) }}">
+&copy; {{ 'now' | date('Y') }} - Curso Desarrollo de Aplicaciones con Symfony 5
+</a>
+<a href="{{ path('app_estatica', { 'pagina': 'privacidad'}) }}"> Privacidad
+</a>
+<a href="{{ path('app_estatica', { 'pagina': 'condiciones'}) }}"> Condiciones de uso
+</a>
+{% endblock %}
+</footer>
+</div>
+{% block javascripts %}
+{% endblock %}
+</body>
 </html>

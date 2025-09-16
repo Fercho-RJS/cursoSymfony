@@ -39,4 +39,11 @@ class DefaultController extends AbstractController
       'eventosCol2' => array_slice($eventosCol, 4, 4)
     ));
   }
+
+  /**
+   * @Route("/condiciones", name="app_estatica", defaults={"pagina"="condiciones"});
+   */
+  public function estaticaAction() {
+    return $this->render('static/condiciones.html.twig');
+  }
 }

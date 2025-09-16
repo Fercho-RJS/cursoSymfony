@@ -15,11 +15,10 @@ class EstaticaController extends AbstractController
     /**
      * @Route(
      *     "/{pagina}",
-     *     name="app_redirigir",
+     *     name="app_estatica",
      *     requirements={"pagina"="patrocinadores|licencia|condiciones|privacidad"}
      * )
      */
-
     public function estaticaAction(Request $request){
         $pagina = $request->attributes->get('pagina', 'patrocinadores');
 

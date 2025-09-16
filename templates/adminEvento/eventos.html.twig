@@ -32,7 +32,7 @@
 							<td>{{ evento.idioma }}</td>
 							<td>{{ evento.usuarios | length }}</td>
 							<td>
-								<a href="#RUTA_VER_INSCRIPTOS">Ver inscriptos</a>
+								<a href="{{ path('app_admin_evento_inscriptos', { 'id': evento.id }) }}">Ver inscriptos</a>
 								<a href="{{ path('app_admin_evento_borrar', { 'id': evento.id }) }}">Borrar</a>
 							</td>
 						</tr>

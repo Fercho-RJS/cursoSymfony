@@ -44,7 +44,7 @@ class DisertanteController extends AbstractController
     public function detalle($id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $disertante = $em->getRepository(Disertante::class)->findDisertantesConEventosPorId($id);
+        $disertante = $em->getRepository(Disertante::class)->find($id);
 
         if (!$disertante) {
             throw $this->createNotFoundException('Disertante no encontrado');
@@ -54,7 +54,6 @@ class DisertanteController extends AbstractController
             'disertante' => $disertante
         ]);
     }
-
     /**
      * @Route("/disertante/slug/{slug}", name="app_disertante_por_slug")
      */
@@ -71,5 +70,4 @@ class DisertanteController extends AbstractController
             'disertante' => $disertante
         ]);
     }
-
 }

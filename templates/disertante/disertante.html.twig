@@ -1,45 +1,55 @@
-<html>
-	<body>
-		<!-- borrar -->
-		<h1>{{ disertante.nombreCompleto }}</h1>
-		<p>{{ disertante.biografia }}</p>
-		<p>
-			<strong>Teléfono:</strong>
-			{{ disertante.telefono }}</p>
-		<p>
-			<strong>Página:</strong>
-			{{ disertante.url }}</p>
-		<p>
-			<strong>Imparte los siguientes eventos</strong>
-		</p>
-		<ul>
-			<p><strong>Imparte los siguientes eventos</strong></p>
-        <ul>
-          {% for evento in disertante.eventos %}
-            <li>
-              <a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
-                {{ evento.titulo }}
-              </a>
-            </li>
-          {% else %}
-            <li>No imparte ningún evento</li>
-          {% endfor %}
-        </ul>
-      </div>
+{% extends 'layout.html.twig' %}
+{% block title %}
+	Disertante:
+	{{ disertante.nombreCompleto }}
+{% endblock %}
+{% block contenido %}
+	<div style="display: flex;">
+		<div class="grid_9 alpha">
+			<h1 style="font-size: 40px; margin-bottom: 15px;">{{ disertante.nombreCompleto }}</h1>
+			<p>{{ disertante.biografia }}</p>
+			<p>
+				<strong>Teléfono:</strong>
+				{{ disertante.telefono }}</p>
+			<p>
+				<strong>Página:</strong>
+				{{ disertante.url }}</p>
+			<p>
+				<strong>Imparte los siguientes eventos</strong>
+			</p>
+			<ul>
+				<p>
+					<strong>Imparte los siguientes eventos</strong>
+				</p>
+				<ul>
+					{% for evento in disertante.eventos %}
+						<li>
+							<a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
+								{{ evento.titulo }}
+							</a>
+						</li>
+					{% else %}
+						<li>No imparte ningún evento</li>
+					{% endfor %}
+				</ul>
+			</div>
 
-      <div class="grid_3 omega">
-        <p><strong>Más información</strong></p>
-        <ul>
-          {% if disertante.twitter %}
-            <li><a href="{{ disertante.twitter }}">Twitter</a></li>
-          {% endif %}
-          {% if disertante.linkedin %}
-            <li><a href="{{ disertante.linkedin }}">LinkedIn</a></li>
-          {% endif %}
-        </ul>
-      </div>
-		</ul>
-
-	</body>
-</html>
-<!-- borrar -->
+			<div class="grid_3 omega">
+				<p>
+					<strong>Más información</strong>
+				</p>
+				<ul>
+					{% if disertante.twitter %}
+						<li>
+							<a href="{{ disertante.twitter }}">Twitter</a>
+						</li>
+					{% endif %}
+					{% if disertante.linkedin %}
+						<li>
+							<a href="{{ disertante.linkedin }}">LinkedIn</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	{% endblock %}

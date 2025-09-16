@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 {% block header %}
 	<h1 class="grid_5">
-		<a href="#RUTA_A_PORTADA">Symfony 2025</a>
+		<a href="{{ path('app_portada') }}">Symfony 2025</a>
 	</h1>
 	<nav class="grid_11">
 		<ul>
-			<li><a href="#RUTA_A_EVENTOS">Eventos</a></li>
-			<li><a href="#RUTA_A_DISERTANTES">Disertantes</a></li>
-			<li><a href="#RUTA_A_CONSULTA">Consulta</a></li>
+			<li><a href="{{ path('app_eventos') }}">Eventos</a></li>
+			<li><a href="{{ path('app_disertantes') }}">Disertantes</a></li>
+			<li><a href="#">Consulta</a></li>
 		</ul>
 	</nav>
 {% endblock %}

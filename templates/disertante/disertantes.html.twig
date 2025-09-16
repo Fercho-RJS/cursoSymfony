@@ -1,40 +1,50 @@
-<html>
-  <body>
-    <h1>Disertantes</h1>
+{% extends 'layout.html.twig' %}
+{% block title %} Lista de Disertantes {% endblock %}
+{% block contenido %}
+	<h1 style=" font-size:40px; margin-bottom: 15px; ">Disertantes</h1>
 
-    {% for disertante in disertantes %}
-      <div class="grid_9 alpha">
-        <h2>
-          <a href="{{ path('app_disertante', { 'id': disertante.id }) }}">
-            {{ disertante.nombreCompleto }}
-          </a>
-        </h2>
+	{% for disertante in disertantes %}
+		<div class="grid_9 alpha">
+			<h2>
+				<a href="{{ path('app_disertante_por_id', { 'id': disertante.id }) }}">
+					{{ disertante.nombreCompleto }}
+				</a>
+			</h2>
 
-        <p><strong>Imparte los siguientes eventos</strong></p>
-        <ul>
-          {% for evento in disertante.eventos %}
-            <li>
-              <a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
-                {{ evento.titulo }}
-              </a>
-            </li>
-          {% else %}
-            <li>No imparte ningún evento</li>
-          {% endfor %}
-        </ul>
-      </div>
+			<p>
+				<strong>Imparte los siguientes eventos</strong>
+			</p>
+			<ul>
+				{% for evento in disertante.eventos %}
+					<li>
+						<a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
+							{{ evento.titulo }}
+						</a>
+					</li>
+				{% else %}
+					<li>No imparte ningún evento</li>
+				{% endfor %}
+			</ul>
+			<br>
+		</div>
 
-      <div class="grid_3 omega">
-        <p><strong>Más información</strong></p>
-        <ul>
-          {% if disertante.twitter %}
-            <li><a href="{{ disertante.twitter }}">Twitter</a></li>
-          {% endif %}
-          {% if disertante.linkedin %}
-            <li><a href="{{ disertante.linkedin }}">LinkedIn</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    {% endfor %}
-  </body>
-</html>
+		<div class="grid_3 omega">
+			<p>
+				<strong>Más información</strong>
+			</p>
+			<ul>
+				{% if disertante.twitter %}
+					<li>
+						<a href="{{ disertante.twitter }}">Twitter</a>
+					</li>
+				{% endif %}
+				{% if disertante.linkedin %}
+					<li>
+						<a href="{{ disertante.linkedin }}">LinkedIn</a>
+					</li>
+				{% endif %}
+			</ul>
+
+		</div>
+	{% endfor %}
+{% endblock %}

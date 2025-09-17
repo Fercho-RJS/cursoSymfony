@@ -191,8 +191,6 @@ class Evento
     }
 
     //EN REPOSITORY VAN LOS DQL.
-    //EN REPOSITORY VAN LOS DQL.
-
     public function getHoraFinalizacion()
     {
         if ($this->hora && $this->duracion) {

@@ -1,26 +1,25 @@
-<html>
-	<!--  Borrar luego  -->
+{% extends "layout.html.twig" %}
+{% block metadesc %} {{ evento.titulo }} por {{ evento.disertante }}, se impartirá el {{ evento.fecha | date("d M") }}. {% endblock %}
+{% block pageid %}evento{% endblock %}
 
-	<body>
-		<h1>{{ evento.titulo }}</h1>
-		<p>{{ evento.descripcion }}</p>
-		<div class='grid-2-alpha'>
-			<strong>Fecha</strong>
-			{{ evento.fecha|date('d M') }}
-		</div>
-		<div class='grid-2'>
-			<strong>Hora</strong>
-			{{ evento.hora|date('H:i') }}
-		</div>
-		<div class='grid-2'>
-			<strong>Idioma</strong>
-			{{ evento.idioma }}
-		</div>
-		<div class='grid-3'>
-			<strong>Disertante</strong>
-      <!-- Ahora ruteamos al path para remover el evento -->
-			<a href="{{ path('app_disertante_por_slug', { 'slug': evento.slug }) }}">{{ evento.disertante }}</a>
-		</div>
-	</body>
-</html>
-<!--  Borrar luego  -->
+{% block contenido %}
+	<h1 style=" font-size:40px;">{{ evento.titulo }}</h1>
+	<p>{{ evento.descripcion }}</p>
+	<div class='grid-2-alpha'>
+		<strong>Fecha</strong>
+		{{ evento.fecha|date('d M') }}
+	</div>
+	<div class='grid-2'>
+		<strong>Hora</strong>
+		{{ evento.hora|date('H:i') }}
+	</div>
+	<div class='grid-2'>
+		<strong>Idioma</strong>
+		{{ evento.idioma }}
+	</div>
+	<div class='grid-3'>
+		<strong>Disertante</strong>
+		<!-- Ahora ruteamos al path para remover el evento -->
+		<a href="{{ path('app_disertante_por_id', { 'id': evento.disertante.id }) }}">{{ evento.disertante }}</a>
+	</div>
+{% endblock %}

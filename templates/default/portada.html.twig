@@ -1,22 +1,20 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Portada - Symfony 2025{% endblock %}
+{% block title %}Portada - Symfony 2025
+{% endblock %}
 
 {% block contenido %}
-	{# <div class="flash">
+	<div class="flash">
 		{% for mensaje in app.flashes('info') %}
-			<div class="alert alert-info">{{ mensaje }}</div>
+			<div class="alert alert-info">{{ mensaje | raw }}</div>
 		{% endfor %}
-	</div> #}
+	</div>
 
 	<div style="display: flex;">
 		<div class="grid_6 alpha">
 			<ul>
 				{% for evento in eventosCol1 %}
-					<li>
-						<a href="{{ path('app_evento', {'slug': evento.slug} ) }}">{{ evento.titulo }}</a>
-						<p>{{ evento.descripcion }}</p>
-					</li>
+					{% include 'describir_evento.html.twig' with { evento: evento } %}
 				{% else %}
 					<li>No hay ningún evento</li>
 				{% endfor %}
@@ -26,10 +24,7 @@
 		<div class="grid_6 omega">
 			<ul>
 				{% for evento in eventosCol2 %}
-					<li>
-						<a href="{{ path('app_evento', {'slug': evento.slug} ) }} ">{{ evento.titulo }}</a>
-						<p>{{ evento.descripcion }}</p>
-					</li>
+					{% include 'describir_evento.html.twig' with { evento: evento } %}
 				{% else %}
 					<li>No hay ningún evento</li>
 				{% endfor %}

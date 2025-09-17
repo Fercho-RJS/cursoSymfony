@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
             'javierLopez' => array(
                 'nombre' => 'Javier',
                 'apellidos' => 'López',
-                'biografia' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis cursus lobortis. Quisque ornare aliquet nunc, ut fringilla sem molestie eget.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>', 
                 'telefono' => '342-156433443',
                 'url' => 'http://www.javierlopez.local/',
                 'email' => 'javier.lopez@gmail.local',
@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
             'ignacioBlanco' => array(
                 'nombre' => 'Ignacio',
                 'apellidos' => 'Blanco',
-                'biografia' => 'Aenean consequat iaculis tellus et ultrices. Aliquam erat volutpat. Nam scelerisque imperdiet iaculis. Morbi dolor orci, ornare quis tempor vitae, ultrices ac augue.',
+                'biografia' => '<i>Aenean consequat iaculis tellus et ultrices. Aliquam erat volutpat. Nam scelerisque imperdiet iaculis. Morbi dolor orci, ornare quis tempor vitae, ultrices ac augue.</i>',
                 'telefono' => '342-154435643',
                 'url' => 'http://www.ignacioblanco.local/',
                 'email' => 'ignacio.blanco@hotmail.local',
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
             'marcosRojas' => array(
                 'nombre' => 'Marcos',
                 'apellidos' => 'Rojas',
-                'biografia' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '342-156776654',
                 'url' => 'http://www.marcosrojas.com/',
                 'email' => 'marcos.rojas@yahoo.local',
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
             'antonelaToledo' => array(
                 'nombre' => 'Antonela',
                 'apellidos' => 'Toledo',
-                'biografia' => 'Ras varius est ac mi aliquet consectetur. Morbi et massa vel felis malesuada placerat molestie ac est. Integer posuere, nulla et condimentum consequat, velit eros ullamcorper mi, ac pulvinar lorem magna sollicitudin libero.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '342-156456773',
                 'url' => 'http://www.antonela.toledo.com/',
                 'email' => 'antonela.toledo@gmail.local',
@@ -101,7 +101,7 @@ class AppFixtures extends Fixture
             'pabloMontenegro' => array(
                 'nombre' => 'Pablo',
                 'apellidos' => 'Montenegro',
-                'biografia' => 'Onec blandit ligula sit amet tortor accumsan vestibulum. Nullam accumsan ipsum sit amet nunc sagittis lacinia. Morbi vitae sapien mi. Etiam non nulla gravida turpis feugiat molestie eu quis lacus.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '342-155230980',
                 'url' => 'http://www.pablo.montenegro.com/',
                 'email' => 'pablo.montenegro@gmail.local',
@@ -111,7 +111,7 @@ class AppFixtures extends Fixture
             'pabloMolina' => array(
                 'nombre' => 'Pablo',
                 'apellidos' => 'Molina',
-                'biografia' => 'Aenean consequat iaculis tellus et ultrices. Aliquam erat volutpat. Nam scelerisque imperdiet iaculis. Morbi dolor orci, ornare quis tempor vitae, ultrices ac augue. In hac habitasse platea dictumst.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '0341-155455667',
                 'url' => 'http://www.pablo.molina.com/',
                 'email' => 'pablo.molina@yahoo.local',
@@ -121,7 +121,7 @@ class AppFixtures extends Fixture
             'alvaroTorres' => array(
                 'nombre' => 'Álvaro',
                 'apellidos' => 'Torres',
-                'biografia' => 'Vivamus ornare congue hendrerit. Fusce accumsan gravida rutrum. Suspendisse potenti. Integer ut lorem massa. In hac habitasse platea dictumst. Donec at tellus massa. Etiam et velit arcu.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '342-156763342',
                 'url' => 'http://www.alvaro.torres.com/',
                 'email' => 'alvaro.torres@curso-symfony.local',
@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
             'tomasMarques' => array(
                 'nombre' => 'Tomas',
                 'apellidos' => 'Marqués',
-                'biografia' => 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec commodo fringilla dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris non risus sit amet libero vehicula pharetra.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '348-156787890',
                 'url' => 'http://www.tomas.marques.com/',
                 'email' => 'tomas.marques@msn.local',
@@ -141,7 +141,7 @@ class AppFixtures extends Fixture
             'julietaHerrera' => array(
                 'nombre' => 'Julieta',
                 'apellidos' => 'Herrera',
-                'biografia' => 'Vivamus fermentum ultrices tellus, sit amet auctor erat semper ut. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras vulputate pretium nibh, vehicula dignissim lorem auctor.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '347-154322312',
                 'url' => 'http://www.julieta.herrera.com/',
                 'email' => 'julieta.herrera@msn.local',
@@ -151,7 +151,7 @@ class AppFixtures extends Fixture
             'joseantonioPaz' => array(
                 'nombre' => 'Jose Antonio',
                 'apellidos' => 'Paz',
-                'biografia' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '343-156789845',
                 'url' => 'http://www.joseantonio.paz.com/',
                 'email' => 'joseantonio.paz@yahoo.local',
@@ -161,7 +161,7 @@ class AppFixtures extends Fixture
             'javierFernandez' => array(
                 'nombre' => 'Javier',
                 'apellidos' => 'Fernández',
-                'biografia' => 'Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.',
+                'biografia' => '<i>Curabitur non velit in risus placerat semper. Suspendisse sed quam id tortor posuere molestie. Maecenas nulla felis, varius eget congue in, condimentum sed lectus.</i>',
                 'telefono' => '341-154457811',
                 'url' => 'http://www.javier.fernandez.com/',
                 'email' => 'javier.fernandez@gmail.local',

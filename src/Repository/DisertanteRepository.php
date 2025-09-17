@@ -53,14 +53,14 @@ class DisertanteRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findDisertanteConEventosPorSlug(string $slug): ?Disertante
-    {
-        return $this->getEntityManager()->createQuery(
-            'SELECT d FROM App\Entity\Disertante d JOIN d.eventos e WHERE e.slug = :slug'
-        )
-            ->setParameter('slug', $slug)
-            ->getOneOrNullResult();
-    }
+    // public function findDisertanteConEventosPorSlug(string $slug): ?Disertante
+    // {
+    //     return $this->getEntityManager()->createQuery(
+    //         'SELECT d FROM App\Entity\Disertante d JOIN d.eventos e WHERE e.slug = :slug'
+    //     )
+    //         ->setParameter('slug', $slug)
+    //         ->getOneOrNullResult();
+    // }
 
 
     //    /**

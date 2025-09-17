@@ -33,9 +33,13 @@ class EventoController extends AbstractController
             throw $this->createNotFoundException('Evento no encontrado');
         }
 
+        //Mensaje flash de acceso a evento.
+        $this->addFlash('info', 'Has accedido al evento: ' . $evento->getTitulo() . ' a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
+
+
         return $this->render('evento/evento.html.twig', [
             'evento' => $evento,
-            'disertante' => $evento->getDisertante()
+            'disertante' => $evento->getDisertante(),
         ]);
     }
 
@@ -47,6 +51,8 @@ class EventoController extends AbstractController
         $eventos = $this->getDoctrine()
             ->getRepository(Evento::class)
             ->findEventosAlfabeticamente();
+
+            $this->addFlash('info', '<b>Has listado todos los eventos</b> a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
 
         return $this->render('evento/eventos.html.twig', [
             'eventos' => $eventos,

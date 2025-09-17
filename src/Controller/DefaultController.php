@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
 
     return $this->render('default/portada.html.twig', array(
       'eventosCol1' => array_slice($eventosCol, 0, 4),
-      'eventosCol2' => array_slice($eventosCol, 4, 4)
+      'eventosCol2' => array_slice($eventosCol, 4, 4)      
     ));
   }
 

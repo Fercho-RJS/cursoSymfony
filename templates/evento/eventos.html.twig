@@ -1,17 +1,25 @@
 {% extends "layout.html.twig" %}
 {% block title %}Eventos{% endblock %}
+{% block pageid %}eventos{% endblock %}
 {% block contenido %}
-<h1 style=" font-size:40px; margin-bottom: 15px; ">Eventos</h1>
-<div>
-<ul>
-    {% for evento in eventos %}
-        <a href='{{ path('app_evento', {'slug': evento.slug} ) }}'>{{ evento.titulo }}</a>
-        <p>{{ evento.descripcion }}</p>
-        <p><b>Hora comienzo: </b> {{ evento.hora|date('H:i') }} | {{ evento.horaFinalizacion|date('H:i') }}
-        <hr>
-    {% else %}
-        No hay eventos registrados
-    {% endfor %}
-</ul>
-</div>
-{% endblock %}
+	<h1 style=" font-size:40px; margin-bottom: 15px; ">Eventos</h1>
+	<div class="grid_12 alpha omega">
+		<ul>
+			{% for evento in eventos %}
+				{% include 'describir_evento.html.twig' with { evento: evento } %}
+				<p><b>Hora comienzo:</b>{{ evento.hora|date('H:i') }} | {{ evento.horaFinalizacion|date('H:i') }}
+                <br><br>
+				{% else %}
+					No hay eventos registrados
+				{% endfor %}
+                </p>
+			</ul>
+			<hr>
+			<h3>¿Falta algún evento?</h3>
+			<p>Accede a la sección
+				<a href="#">
+					<em>Call for papers</em>
+				</a>
+				y envíanos tu propuesta</p>
+		</div>
+	{% endblock %}

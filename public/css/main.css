@@ -534,7 +534,7 @@ footer a:hover {
 }
 
 /* Botones */
-#admin a[href*="nuevo"], #admin form input[type="submit"] {
+#admin a[href*="new"], #admin form input[type="submit"] {
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -572,7 +572,7 @@ footer a:hover {
     width: 150px;
 }
 
-#admin a[href*="nuevo"]:hover, #admin form input[type="submit"]:hover {
+#admin a[href*="new"]:hover, #admin form input[type="submit"]:hover {
     border-color: #777;
 
     background-image: -webkit-gradient(
@@ -591,7 +591,7 @@ footer a:hover {
         );
 }
 
-#admin a[href*="nuevo"]:active, #admin form input[type="submit"]:active {
+#admin a[href*="new"]:active, #admin form input[type="submit"]:active {
     border-color: #000;
     position: relative;
     top: 1px;

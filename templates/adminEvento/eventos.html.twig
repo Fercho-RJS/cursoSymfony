@@ -4,9 +4,8 @@
 {% block pageid %}admin{% endblock %}
 {% block contenido %}
 	<!-- MENSAJES FLASH ADMIN AQUÍ (utilizar <div class=”flash_admin”> </div>) -->
-	<div class="flash_admin">
 		{% for mensaje in app.flashes('info') %}
-			<div class="alert alert-info">{{ mensaje }}</div>
+			<div class="flash_admin alert alert-info">{{ mensaje }}</div>
 		{% endfor %}
 		<table>
 			<thead>
@@ -42,5 +41,5 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<a href="#RUTA_NUEVO_EVENTO">Nuevo evento</a>
+		<a href="#RUTA_new_EVENTO">Nuevo evento</a>
 	{% endblock %}

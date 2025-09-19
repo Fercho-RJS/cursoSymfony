@@ -1,7 +1,7 @@
 {% extends 'layout-admin.html.twig' %}
-{% block title %}Inscriptos al evento "{{ evento.titulo }}"
-{% endblock %}
-{% block body %}
+{% block title %}Inscriptos al evento "{{ evento.titulo }}"{% endblock %}
+{% block pageid %}admin{% endblock %}
+{% block contenido %}
 	<h1>Inscriptos al evento "{{ evento.titulo }}"</h1>
 
 	<p>
@@ -9,37 +9,38 @@
 	</p>
 
 	<p>
-		<strong>Total de inscriptos:</strong> {{ evento.usuarios|length }}
+		<strong>Total de inscriptos:</strong>
+		{{ evento.usuarios|length }}
 	</p>
-<!-- borrar -->
-<table>
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>DNI</th>
-			<th>Nombre</th>
-			<th>Teléfono</th>
-			<th>Email</th>
-		</tr>
-	</thead>
+	<!-- borrar -->
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>DNI</th>
+				<th>Nombre</th>
+				<th>Teléfono</th>
+				<th>Email</th>
+			</tr>
+		</thead>
 
-	<tbody>
-		{% for usuario in evento.usuarios %}
-			<tr>
-				<td>{{ loop.index }}</td>
-				<td>{{ usuario.dni }}</td>
-				<td>{{ usuario.nombre }}
-					{{ usuario.apellidos }}
-				</td>
-				<td>{{ usuario.telefono }}</td>
-				<td>{{ usuario.email }}</td>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="5">No hay ningún usuario inscripto</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
-<!-- borrar -->
+		<tbody>
+			{% for usuario in evento.usuarios %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>{{ usuario.dni }}</td>
+					<td>{{ usuario.nombre }}
+						{{ usuario.apellidos }}
+					</td>
+					<td>{{ usuario.telefono }}</td>
+					<td>{{ usuario.email }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">No hay ningún usuario inscripto</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<!-- borrar -->
 {% endblock %}

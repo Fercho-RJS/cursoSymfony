@@ -5,15 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use DateTime;
-use Symfony\Component\Validator\Constraints\Time;
-use App\Repository;
-use App\Entity;
-use App\Repository\EventoRepository;
-use App\Repository\DisertanteRepository;
-use App\Repository\UsuarioRepository;
-
 // El objetivo de crear estas clases controladoras propias es extender las funcionalidades de la
 // clase Controller de Symfony, con nuestras propias funcionalidades y características
 // (funcionalidades correspondiente a la capa del controlador, atajos, etc.).
@@ -27,5 +18,18 @@ use App\Repository\UsuarioRepository;
 
 class AbstractBaseController extends AbstractController
 {
-    
+    public function addFlashInfo(string $message)
+    {
+        return $this->addFlash('info', $message);
+    }
+
+    public function addFlashWarning(string $message)
+    {
+        return $this->addFlash('warning', $message);
+    }
+
+    public function addFlashError(string $message)
+    {
+        return $this->addFlash('error', $message);
+    }
 }

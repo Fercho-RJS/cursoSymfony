@@ -1,11 +1,10 @@
 {% extends "layout-admin.html.twig" %}
-{% block title %}Administrar listado de eventos
-{% endblock %}
+{% block title %}Administrar listado de eventos{% endblock %}
 {% block pageid %}admin{% endblock %}
 {% block contenido %}
 	<!-- MENSAJES FLASH ADMIN AQUÍ (utilizar <div class=”flash_admin”> </div>) -->
 		{% for mensaje in app.flashes('info') %}
-			<div class="flash_admin alert alert-info">{{ mensaje }}</div>
+			<div class="flash_admin alert alert-info">{{ mensaje | raw }}</div>
 		{% endfor %}
 		<table>
 			<thead>

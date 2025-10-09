@@ -2,56 +2,51 @@
 
 namespace App\Controller;
 
+use App\Entity\Evento;
+use App\Entity\Consulta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Evento;
-use App\Entity\Consulta;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
 
-class DefaultController extends AbstractBaseController
+class DefaultController extends AbstractController
 {
   /**
    * @Route("/portada", name="app_portada")
    */
-  public function portadaAction()
+  public function portada(EntityManagerInterface $em): Response
   {
-    // Obtener el EntityManager
-    $em = $this->getDoctrine()->getManager();
-    // Obtener el repositorio de Articulo
-    $eventoRepository = $em->getRepository(Evento::class);
-    // Obtener todos los eventos
-    $eventos = $eventoRepository->findAll();
+    $eventos = $em->getRepository(Evento::class)->findAll();
 
     $total = count($eventos);
-    $n = ($total >= 8) ? 8 : ($total < 8 && $total > 0) ? $total : 0;
-    $eventosCol = $eventosCol1 = $eventosCol2 = array();
-    for ($i = 0; $i < $n; $i++) {
-      $evento = $eventos[\rand(0, $total - 1)];
-      while (in_array($evento, $eventosCol)) {
-        $evento = $eventos[\rand(0, $total - 1)];
+    $n = min($total, 8);
+    $eventosCol = [];
+
+    while (count($eventosCol) < $n) {
+      $evento = $eventos[rand(0, $total - 1)];
+      if (!in_array($evento, $eventosCol, true)) {
+        $eventosCol[] = $evento;
       }
-      $eventosCol[] = $evento;
     }
 
-    return $this->render('default/portada.html.twig', array(
+    return $this->render('default/portada.html.twig', [
       'eventosCol1' => array_slice($eventosCol, 0, 4),
-      'eventosCol2' => array_slice($eventosCol, 4, 4)
-    ));
+      'eventosCol2' => array_slice($eventosCol, 4, 4),
+    ]);
   }
 
   /**
-   * @Route("/condiciones", name="app_estatica", defaults={"pagina"="condiciones"});
+   * @Route("/condiciones", name="app_estatica", defaults={"pagina"="condiciones"})
    */
-  public function estaticaAction()
+  public function estatica(): Response
   {
     return $this->render('static/condiciones.html.twig');
   }
@@ -59,12 +54,20 @@ class DefaultController extends AbstractBaseController
   /**
    * @Route("/consulta", name="app_consulta")
    */
-  public function consultaAction(Request $request)
+  public function consulta(Request $request, EntityManagerInterface $em): Response
   {
-    // Vincular el formulario a la entidad Consulta
-    $consulta = new Consulta();
+    $defaultData = ['consulta' => 'Escriba aquí su consulta ...'];
 
-    $form = $this->createFormBuilder($consulta)
+    $collectionConstraints = new Collection([
+      'fields' => [
+        'nombre' => new Length(['min' => 3]),
+        'email' => new Email(['message' => 'Dirección de email inválida']),
+        'consulta' => new Length(['min' => 5]),
+      ],
+      'allowExtraFields' => true,
+    ]);
+
+    $form = $this->createFormBuilder($defaultData, ['constraints' => $collectionConstraints])
       ->add('nombre', TextType::class)
       ->add('mail', EmailType::class)
       ->add('consulta', TextareaType::class)
@@ -74,20 +77,15 @@ class DefaultController extends AbstractBaseController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      // Persistir la consulta en base de datos
-      $em = $this->getDoctrine()->getManager();
       $em->persist($consulta);
       $em->flush();
 
-      $this->addFlashInfo('¡Gracias por su consulta! En breve nos pondremos en contacto con usted.');
-      return $this->redirect($this->generateUrl('app_portada'));
+      $this->addFlash('info', '¡Gracias por su consulta! En breve nos pondremos en contacto con usted.');
+      return $this->redirectToRoute('app_portada');
     }
 
-    return $this->render(
-      'default/consulta.html.twig',
-      array(
-        'form' => $form->createView(),
-      )
-    );
+    return $this->render('default/consulta.html.twig', [
+      'form' => $form->createView(),
+    ]);
   }
 }

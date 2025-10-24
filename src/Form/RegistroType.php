@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Form;
+<?php namespace App\Form;
 
 use App\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +25,11 @@ class RegistroType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Contraseña'],
                 'second_options' => ['label' => 'Repetir Contraseña'],
-            ]);
+            ])
+            ->add('submit', SubmitType::class, [
+            'label' => 'Registrarse',
+            'attr' => ['class' => 'btn btn-primary']
+        ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver)

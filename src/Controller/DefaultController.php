@@ -1,5 +1,13 @@
 <?php namespace App\Controller;
 
+/* 
+  RUTAS:
+    /portada                      --> app_portada           Muestra la portada con eventos aleatorios
+    /consulta                     --> app_consulta          Formulario de contacto/consulta
+    /consulta_metodo_viejo        --> app_consulta_vieja    Versión anterior del formulario (comentado)
+    /condiciones                  --> app_estatica          Página estática de condiciones (comentado)
+*/
+
 use App\Entity\Evento;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+// -----------------------------------------------------------------------------------------------
+//                                 TEORÍA DE ABSTRACTBASECONTROLLER
+// -----------------------------------------------------------------------------------------------
 // El objetivo de crear estas clases controladoras propias es extender las funcionalidades de la
 // clase Controller de Symfony, con nuestras propias funcionalidades y características
 // (funcionalidades correspondiente a la capa del controlador, atajos, etc.).

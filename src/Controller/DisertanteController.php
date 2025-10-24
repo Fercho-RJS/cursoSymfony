@@ -1,6 +1,12 @@
-<?php
+<?php namespace App\Controller;
 
-namespace App\Controller;
+/* 
+  RUTAS:
+    /disertante                   --> app_disertante_inicio       Redirige al listado de disertantes
+    /disertante/nuevo            --> app_disertante_nuevo        Crear nuevo disertante
+    /disertante/listado          --> app_disertante_listado      Listar todos los disertantes
+    /disertante/{id}             --> app_disertante_por_id       Ver detalle de un disertante por ID
+*/
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,9 +78,9 @@ class DisertanteController extends AbstractController
   /**
    * @Route("/{id}", name="por_id")
    */
-  public function detallePorSlug($id, EntityManagerInterface $em): Response
+  public function disertantePorId($id, EntityManagerInterface $em): Response
   {
-    // El siguiente método quedó obsoloto para ésta versión de symfony, se recomienda inyectarlo en la function directamente. >>>
+    // El siguiente método quedó obsoloto para ésta versión de symfony, se recomienda inyectarlo en la function directamente como parámetro. >>>
     // -----------------------------------------------------------------------------------------------
     // $em = $this->getDoctrine()->getManager();
 

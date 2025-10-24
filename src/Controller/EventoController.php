@@ -1,6 +1,13 @@
-<?php
+<?php namespace App\Controller;
 
-namespace App\Controller;
+/* 
+  RUTAS:
+    /evento                         --> app_evento_inicio                  Redirige al listado de eventos
+    /evento/listado                 --> app_evento_listado                 Lista todos los eventos disponibles
+    /evento/buscar/{slug}           --> app_evento_por_slug                Muestra detalle de un evento por slug
+    /evento/buscar/disertante/{slug}--> app_evento__disertante_por_slug    Muestra el disertante asociado a un evento
+    /evento/nuevo/prueba            --> app_evento_nuevo                   Crea un evento de prueba (comentado)
+*/
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,12 +1,12 @@
 <?php namespace App\Controller;
 
-/*
+/* 
   RUTAS:
-  /admin/disertante               ->  Index
-  /admin/disertante/{id}/editar   ->  Editar disertante X
-  /admin/disertante/nuevo         ->  Crear nuevo disertante
-  /admin/disertante/listado       ->  Lista de disertantes
-  /admin/disertante/{id}/eliminar ->  Borrar disertante X
+    /admin/disertante                  --> app_admin_disertante             (opcional, aún no definida)
+    /admin/disertante/listado         --> app_admin_disertante_listado     Listar todos los disertantes
+    /admin/disertante/nuevo           --> app_admin_disertante_nuevo       Crear nuevo disertante
+    /admin/disertante/{id}/editar     --> app_admin_disertante_editar      Editar disertante por ID
+    /admin/disertante/{id}/eliminar   --> app_admin_disertante_borrar      Eliminar disertante por ID
 */
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,7 +85,7 @@ class AdminDisertanteController extends AbstractController
    */
   public function listadoDisertantes(DisertanteRepository $repository): Response
   {
-    
+
     $disertantes = $repository->findAll();
 
     return $this->render('adminDisertante/listado.html.twig', [
@@ -95,7 +95,7 @@ class AdminDisertanteController extends AbstractController
 
   /**
    * @Route("/{id}/eliminar", name="borrar")
-  */
+   */
   public function eliminarDisertanteAction(int $id, EntityManagerInterface $em): Response
   {
     $disertante = $em->getRepository(Disertante::class)->find($id);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,31 +11,29 @@ use Symfony\Component\Validator\Constraints\Time;
 use App\Repository;
 use App\Entity\Disertante;
 use App\Repository\DisertanteRepository;
+use App\Form\DisertanteType;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/disertante", name="app_disertante_")
+ */
 class DisertanteController extends AbstractController
 {
   /**
-   * @Route("/disertante", name="app_disertante")
+   * @Route("", name="inicio")
    */
   public function index(): Response
   {
-    return $this->render('disertante/disertante.html.twig', [
-      'controller_name' => 'DisertanteController',
-    ]);
+    return $this->redirectToRoute('app_disertante_listado');
   }
+
+  // ---------------------------------- ## NUEVO ## ----------------------------------
 
   /**
    * @Route("/nuevo", name="nuevo")
    */
   public function nuevoDisertanteAction(Request $request, EntityManagerInterface $em): Response
   {
-    use Symfony\Component\HttpFoundation\Response;
-    use Symfony\Component\Routing\Annotation\Route;
-    use Doctrine\ORM\EntityManagerInterface;
-    use App\Entity\Disertante;
-    use App\Form\DisertanteType;
-    
     $disertante = new Disertante();
 
     $form = $this->createForm(DisertanteType::class, $disertante);
@@ -49,33 +48,36 @@ class DisertanteController extends AbstractController
       return $this->redirectToRoute('app_admin_disertante_listar');
     }
 
-    return $this->render('admin_disertante/nuevo.html.twig', [
+    return $this->render('adminDisertante/nuevo.html.twig', [
       'form' => $form->createView(),
     ]);
   }
 
+  // ---------------------------------- ## LISTADO ## ----------------------------------
+
   /**
-   * @Route("/disertante/{id}", name="app_disertante_por_id")
+   * @Route("/listado", name="listado")
    */
-  public function detalle($id): Response
+  public function listarDisertantes(DisertanteRepository $repository): Response
   {
-    $em = $this->getDoctrine()->getManager();
-    $disertante = $em->getRepository(Disertante::class)->find($id);
+    $disertantes = $repository->findAll();
 
-    if (!$disertante) {
-      throw $this->createNotFoundException('Disertante no encontrado');
-    }
-
-    return $this->render('disertante/disertante.html.twig', [
-      'disertante' => $disertante
+    return $this->render('disertante/disertantes.html.twig', [
+      'disertantes' => $disertantes,
     ]);
   }
+
+  // ---------------------------------- ## BUSCAR POR ID ## ----------------------------------
+
   /**
-   * @Route("/disertante/{id}", name="app_disertante_por_id")
+   * @Route("/{id}", name="por_id")
    */
-  public function detallePorSlug($id): Response
+  public function detallePorSlug($id, EntityManagerInterface $em): Response
   {
-    $em = $this->getDoctrine()->getManager();
+    // El siguiente método quedó obsoloto para ésta versión de symfony, se recomienda inyectarlo en la function directamente. >>>
+    // -----------------------------------------------------------------------------------------------
+    // $em = $this->getDoctrine()->getManager();
+
     $disertante = $em->getRepository(Disertante::class)->findDisertanteConEventosPorId($id);
 
     if (!$disertante) {

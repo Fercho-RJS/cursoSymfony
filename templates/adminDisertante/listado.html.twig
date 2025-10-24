@@ -1,0 +1,39 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% block title %}Listado de Disertantes
+{% endblock %}
+{% block pageid 'admin' %}
+
+{% block body %}
+	<h1>Listado de Disertantes</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre Completo</th>
+				<th>Email</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for disertante in disertantes %}
+				<tr>
+					<td>{{ disertante.id }}</td>
+					<td>{{ disertante.nombreCompleto }}</td>
+					<td>{{ disertante.email }}</td>
+					<td>
+						<a href="{{ path('app_admin_disertante_editar', { id: disertante.id }) }}">Editar</a>
+            <a href="{{ path('app_admin_disertante_borrar', { id: disertante.id }) }}">Eliminar</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">No hay disertantes registrados.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_disertante_nuevo') }}" class="button-tag">Nuevo disertante</a>
+{% endblock %}

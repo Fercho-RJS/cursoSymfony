@@ -25,7 +25,7 @@
 				<ul>
 					{% for evento in disertante.eventos %}
 						<li>
-							<a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
+							<a href="{{ path('app_evento_por_slug', { 'slug': evento.slug }) }}">
 								{{ evento.titulo }}
 							</a>
 						</li>

@@ -1,0 +1,11 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% block title %}Nuevo Disertante{% endblock %}
+{% block pageid 'admin' %}
+
+{% block body %}
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Guardar</button>
+  {{ form_end(form) }}
+{% endblock %}

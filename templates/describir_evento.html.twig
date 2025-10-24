@@ -1,5 +1,5 @@
 <li>
-	<a href="{{ path('app_evento', {'slug': evento.slug}) }}">
+	<a href="{{ path('app_evento_por_slug', {'slug': evento.slug}) }}">
 		{{ evento.titulo | capitalize }}
 	</a>
 	<p>{{ evento.descripcion | slice(0, 200) }}</p>

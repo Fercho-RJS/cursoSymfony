@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
-{% block title %}
-	Lista de Disertantes
-{% endblock %}
+{% block title %}Lista de Disertantes{% endblock %}
+{% block pageid %}disertantes{% endblock %}
+
 {% block metadesc %}
 	En esta edición contaremos con:
 	{% for disertante in disertantes %}
@@ -12,7 +12,6 @@
 		{{ disertante.nombreCompleto }}
 	{% endfor %}.
 {% endblock %}
-{% block pageid %}disertantes{% endblock %}
 
 {% block contenido %}
 	<h1 style=" font-size:40px;">Disertantes</h1>
@@ -31,7 +30,7 @@
 			<ul>
 				{% for evento in disertante.eventos %}
 					<li>
-						<a href="{{ path('app_evento', { 'slug': evento.slug }) }}">
+						<a href="{{ path('app_evento_por_slug', { 'slug': evento.slug }) }}">
 							{{ evento.titulo }}
 						</a>
 					</li>

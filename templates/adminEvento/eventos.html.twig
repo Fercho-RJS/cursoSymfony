@@ -29,8 +29,9 @@
 						<td>{{ evento.idioma }}</td>
 						<td>{{ evento.usuarios | length }}</td>
 						<td>
-							<a href="{{ path('app_admin_evento_inscriptos', { 'id': evento.id }) }}">Ver inscriptos</a>
-							<a href="{{ path('app_admin_evento_borrar', { 'id': evento.id }) }}">Borrar</a>
+							<a href="{{ path('app_admin_evento_inscriptos', { 'id': evento.id }) }}">View</a>
+							<a href="{{ path('app_admin_evento_borrar', { 'id': evento.id }) }}">Del</a>
+              <a href="{{ path('app_admin_evento_editar', { 'id': evento.id }) }}">Edit</a>
 						</td>
 					</tr>
 				{% else %}
@@ -40,5 +41,5 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<a href="{{ path('admin_evento_nuevo') }}">Crear nuevo evento</a>
+		<a class="btn btn-primary" href="{{ path('app_admin_evento_nuevo') }}">Crear nuevo evento</a>
 	{% endblock %}

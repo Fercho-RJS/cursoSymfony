@@ -1,0 +1,13 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% block title %}Editar Disertante{% endblock %}
+{% block pageid 'admin' %}
+
+{% block body %}
+  <h1>Editar disertante: {{ disertante.nombreCompleto }}</h1>
+
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Actualizar</button>
+  {{ form_end(form) }}
+{% endblock %}

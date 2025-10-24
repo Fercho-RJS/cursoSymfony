@@ -6,18 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AbstractAdminBaseController extends AbstractController
 {
-    public function addFlashInfo(string $message)
-    {
-        return $this->addFlash('info', $message);
-    }
+  # Mensaje flash personalizado para "Información" #
+  public function addFlashInfo(string $message): void
+  {
+    $this->addFlash('info', $message);
+  }
 
-    public function addFlashWarning(string $message)
-    {
-        return $this->addFlash('warning', $message);
-    }
+  # Mensaje flash personalizado para "Éxito" #
+  public function addFlashSuccess(string $message): void
+  {
+    $this->addFlash('success', $message);
+  }
 
-    public function addFlashError(string $message)
-    {
-        return $this->addFlash('error', $message);
-    }
+  # Mensaje flash personalizado para "Alerta" #
+  public function addFlashWarning(string $message): void
+  {
+    $this->addFlash('warning', $message);
+  }
+
+  # Mensaje flash personalizado para "Error" #
+  public function addFlashError(string $message): void
+  {
+    $this->addFlash('error', $message);
+  }
 }

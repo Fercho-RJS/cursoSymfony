@@ -47,7 +47,7 @@ class Evento
   private $fecha;
 
   /**
-   * @ORM\Column(type="time", nullable=true)
+   * @ORM\Column(type="datetime", nullable=true)
    */
   private $hora;
 
@@ -135,7 +135,7 @@ class Evento
     return $this;
   }
 
-  public function getHora()
+  public function getHora(): ?\DateTimeInterface
   {
     return $this->hora;
   }
@@ -201,6 +201,7 @@ class Evento
   public function getHoraFinalizacion()
   {
     if ($this->hora && $this->duracion) {
+      /** @var \DateTime $horaFinal */
       $horaFinal = (clone $this->hora);
       $horaFinal->add(new \DateInterval('PT' . $this->duracion . 'M'));
       return $horaFinal;

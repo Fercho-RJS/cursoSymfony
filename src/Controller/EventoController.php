@@ -8,90 +8,95 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Evento;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @Route("/evento", name="app_evento_")
+ */
 class EventoController extends AbstractController
 {
-    /**
-     * @Route("/evento", name="app_render_eventos")
-     */
-    public function index(): Response
-    {
-        return $this->render('evento/eventos.html.twig', [
-            'controller_name' => 'EventoController',
-        ]);
+  // -------------------------- ## [ INICIO ] ## -------------------------------------
+
+  /**
+   * @Route("", name="inicio")
+   */
+  public function index(): Response
+  {
+    return $this->redirectToRoute('app_evento_listado');
+  }
+
+  // -------------------------- ## [  BUSCAR POR SLUG  ] ## --------------------------
+
+  /**
+   * @Route("/buscar/{slug}", name="por_slug")
+   */
+  public function eventoAction(string $slug, EntityManagerInterface $em): Response
+  {
+    $evento = $em->getRepository(Evento::class)->findEventoConDisertantePorSlug($slug);
+
+    if (!$evento) {
+      throw $this->createNotFoundException('Evento no encontrado');
     }
 
-    /**
-     * @Route("/evento/{slug}", name="app_evento")
-     */
-    public function eventoAction(Request $request, string $slug): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $evento = $em->getRepository(Evento::class)->findEventoConDisertantePorSlug($slug);
-
-        if (!$evento) {
-            throw $this->createNotFoundException('Evento no encontrado');
-        }
-
-        //Mensaje flash de acceso a evento.
-        $this->addFlash('info', 'Has accedido al evento: ' . $evento->getTitulo() . ' a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
+    //Mensaje flash de acceso a evento.
+    $this->addFlash('info', 'Has accedido al evento: ' . $evento->getTitulo() . ' a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
 
 
-        return $this->render('evento/evento.html.twig', [
-            'evento' => $evento,
-            'disertante' => $evento->getDisertante(),
-        ]);
+    return $this->render('evento/evento.html.twig', [
+      'evento' => $evento,
+      'disertante' => $evento->getDisertante(),
+    ]);
+  }
+
+  // -------------------------- ## [  LISTAR TODOS LOS EVENTOS DISPONIBLES  ] ## ---------------------
+
+  /**
+   * @Route("/listado", name="listado")
+   */
+  public function eventosAction(EntityManagerInterface $em): Response
+  {
+    $eventos = $em->getRepository(Evento::class)->findEventosAlfabeticamente();
+
+    $this->addFlash('info', '<b>Has listado todos los eventos</b> a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
+
+    return $this->render('evento/eventos.html.twig', [
+      'eventos' => $eventos,
+    ]);
+  }
+
+  /**
+   * @Route("/buscar/disertante/{slug}", name="_disertante_por_slug")
+   */
+  public function disertantePorSlugAction(string $slug, EntityManagerInterface $em): Response
+  {
+    $evento = $em->getRepository(Evento::class)->findOneBy(['slug' => $slug]);
+
+    if (!$evento || !$evento->getDisertante()) {
+      throw $this->createNotFoundException('No existe el disertante para el evento solicitado...');
     }
 
-    /**
-     * @Route("/eventos", name="app_eventos")
-     */
-    public function eventosAction(): Response
-    {
-        $eventos = $this->getDoctrine()
-            ->getRepository(Evento::class)
-            ->findEventosAlfabeticamente();
+    return $this->render('evento/disertante.html.twig', [
+      'disertante' => $evento->getDisertante(),
+    ]);
+  }
 
-            $this->addFlash('info', '<b>Has listado todos los eventos</b> a las ' . (new \DateTime())->format('H:i:s') . ' del día ' . (new \DateTime())->format('d/m/Y'));
+  // -------------------------- ## [  NUEVO (PRUEBA)  ] ## --------------------------
 
-        return $this->render('evento/eventos.html.twig', [
-            'eventos' => $eventos,
-        ]);
-    }
+  /**
+   * @Route("/nuevo/prueba", name="nuevo")
+   */
+  // public function newAction(): Response
+  // {
+  //   $evento = new Evento();
+  //   $evento->setTitulo('Introducción al Symfony 5');
+  //   $evento->setDuracion(20);
+  //   $evento->setIdioma('Español (Argentina)');
+  //   $evento->setDescripcion('Aguante River');
 
-    /**
-     * @Route("/evento/new", name="app_evento_new")
-     */
-    public function newAction(): Response
-    {
-        $evento = new Evento();
-        $evento->setTitulo('Introducción al Symfony 5');
-        $evento->setDuracion(20);
-        $evento->setIdioma('Español (Argentina)');
-        $evento->setDescripcion('Aguante River');
+  //   $em = $this->getDoctrine()->getManager();
+  //   $em->persist($evento);
+  //   $em->flush();
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($evento);
-        $em->flush();
-
-        return new Response('Evento creado con ID: ' . $evento->getId());
-    }
-
-    /**
-     * @Route("/evento/disertante/{slug}", name="app_disertante_by_slug")
-     */
-    public function disertanteBySlugAction(string $slug): Response
-    {
-        $evento = $this->getDoctrine()
-            ->getRepository(Evento::class)
-            ->findOneBy(['slug' => $slug]);
-
-        if (!$evento || !$evento->getDisertante()) {
-            throw $this->createNotFoundException('No existe el disertante para el evento solicitado...');
-        }
-
-        return $this->render('evento/disertante.html.twig', [
-            'disertante' => $evento->getDisertante(),
-        ]);
-    }
+  //   return new Response('Evento creado con ID: ' . $evento->getId());
+  // }
 }

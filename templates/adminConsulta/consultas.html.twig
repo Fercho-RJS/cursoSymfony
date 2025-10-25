@@ -1,0 +1,33 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% block title %}Listado de Consultas{% endblock %}
+{% block pageid 'admin' %}
+
+{% block contenido %}
+<h1>Consultas recibidas</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Mensaje</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for consulta in consultas %}
+      <tr>
+        <td>{{ consulta.fecha|date('d/m/Y H:i') }}</td>
+        <td>{{ consulta.nombre }}</td>
+        <td>{{ consulta.email }}</td>
+        <td>{{ consulta.consulta }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4">No hay consultas registradas.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

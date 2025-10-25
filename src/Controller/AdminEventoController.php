@@ -1,4 +1,6 @@
-<?php namespace App\Controller;
+<?php
+
+namespace App\Controller;
 
 /* 
   RUTAS:
@@ -21,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Controller\AbstractAdminBaseController;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\EventoType;
+use App\Form\InscripcionType;
 
 /**
  * @Route("/admin", name="app_admin_")
@@ -28,13 +31,11 @@ use App\Form\EventoType;
 class AdminEventoController extends AbstractAdminBaseController
 {
   /**
-   * @Route("/evento", name="evento")
+   * @Route("", name="inicio")
    */
   public function index(): Response
   {
-    return $this->render('admin_evento/index.html.twig', [
-      'controller_name' => 'AdminEventoController',
-    ]);
+    return $this->redirectToRoute('app_admin_evento_listar');
   }
 
   /**
@@ -53,7 +54,7 @@ class AdminEventoController extends AbstractAdminBaseController
     // $query = $em->createQuery($dql);
     // $eventos = $query->getResult();
     // ---------------------------------------------------------------------------------------------
-    
+
 
     $eventos = $em->getRepository(Evento::class)->findEventosAlfabeticamente();
     // -------------------------------------- ## TEST ## -------------------------------------------
@@ -62,7 +63,7 @@ class AdminEventoController extends AbstractAdminBaseController
     // var_dump($eventos);
     // exit();
     // ---------------------------------------------------------------------------------------------
-    
+
     return $this->render('adminEvento/eventos.html.twig', [
       'eventos' => $eventos
     ]);
@@ -92,11 +93,8 @@ class AdminEventoController extends AbstractAdminBaseController
   /**
    * @Route("/evento/borrar/{id}", name="evento_borrar")
    */
-  public function borrarAction($id) 
+  public function borrarAction($id, EntityManagerInterface $em)
   {
-    $em = $this->getDoctrine()->getManager();
-
-    // Buscar el evento por ID
     $evento = $em->getRepository(Evento::class)->find($id);
 
     if (!$evento) {
@@ -106,13 +104,6 @@ class AdminEventoController extends AbstractAdminBaseController
     $em->remove($evento);
     $em->flush();
 
-
-    // Mensaje flash con método Symfony
-    // ---------------------------------------------------------------------------------------------
-    // $this->addFlash('info', 'El evento fue eliminado correctamente: ' . $evento->getTitulo());
-
-    // Mensaje flash mediante la función de AbstractAdminBaseController.
-    // ---------------------------------------------------------------------------------------------
     $this->addFlashInfo('El evento fue eliminado correctamente: ' . $evento->getTitulo());
 
     return $this->redirectToRoute('app_admin_evento_listar');
@@ -152,7 +143,7 @@ class AdminEventoController extends AbstractAdminBaseController
 
       // Método nuevo:
       $this->addFlashInfo('El evento "' . $evento->getTitulo() . '" fue creado correctamente');
-      
+
       return $this->redirectToRoute('app_admin_evento_listar');
     }
 
@@ -188,6 +179,37 @@ class AdminEventoController extends AbstractAdminBaseController
     return $this->render('adminEvento/editar.html.twig', [
       'form' => $form->createView(),
       'evento' => $evento,
+    ]);
+  }
+
+  /**
+   * @Route("/evento/usuario/inscribir", name="evento_inscribir_usuario")
+   */
+  public function inscribirUsuarioAction(Request $request, EntityManagerInterface $em): Response
+  {
+    $form = $this->createForm(InscripcionType::class, null, [
+      'data_class' => null
+    ]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $data = $form->getData();
+      $evento = $data['evento'];
+      $usuario = $data['usuario'];
+
+      if ($evento->getUsuarios()->contains($usuario)) {
+        $this->addFlash('info', 'El usuario ya está inscripto en este evento.');
+      } else {
+        $evento->addUsuario($usuario);
+        $em->flush();
+        $this->addFlash('success', 'Usuario inscripto correctamente al evento.');
+      }
+
+      return $this->redirectToRoute('app_admin_evento_listar');
+    }
+
+    return $this->render('adminEvento/inscribir.html.twig', [
+      'form' => $form->createView(),
     ]);
   }
 }

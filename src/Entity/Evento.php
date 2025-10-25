@@ -37,7 +37,7 @@ class Evento
   /**
    * @ORM\Column(type="text")
    * @Assert\NotBlank()
-   * @Assert\Length(min=50)
+   * @Assert\Length(min=5)
    */
   private $descripcion;
 
@@ -70,8 +70,9 @@ class Evento
   private $disertante;
 
   /**
-   * @ORM\ManyToMany(targetEntity="App\Entity\Usuario", inversedBy="eventos")
-   * @ORM\JoinTable(name="evento_usuario")
+   * @ORM\ManyToMany(targetEntity=Usuario::class, inversedBy="eventos")
+   * @ORM\JoinTable(name="evento_usuario", joinColumns={@ORM\JoinColumn(name="evento_id", referencedColumnName="id", onDelete="CASCADE")}, inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
+   * )
    */
   private $usuarios;
 

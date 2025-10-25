@@ -45,7 +45,12 @@ class EventoType extends AbstractType
         'query_builder' => function ($repositorio) {
           return $repositorio->createQueryBuilder('d')->orderBy('d.nombre', 'ASC');
         },
+      ])
+      ->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, [
+    'label' => 'Guardar evento',
+    'attr' => ['class' => 'btn btn-primary']
       ]);
+
   }
 
   public function configureOptions(OptionsResolver $resolver): void

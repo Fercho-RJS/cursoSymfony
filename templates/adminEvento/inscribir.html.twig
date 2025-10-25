@@ -1,0 +1,12 @@
+{% extends 'layout-admin.html.twig' %}
+{% block title %}Inscribir usuario{% endblock %}
+{% block pageid %}admin{% endblock %}
+{% block contenido %}
+<h1>Inscribir usuario a evento</h1>
+
+{{ form_start(form) }}
+  {{ form_row(form.evento) }}
+  {{ form_row(form.usuario) }}
+  <button type="submit" class="btn btn-primary">Inscribir</button>
+{{ form_end(form) }}
+{% endblock %}

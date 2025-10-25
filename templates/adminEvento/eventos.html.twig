@@ -24,7 +24,7 @@
 							{{ evento.hora | date('H:i') }}
 						</td>
 						<td>
-							<a href="{{ path('app_evento', {'slug': evento.slug} ) }}">{{ evento.titulo }} </a>
+							<a href="{{ path('app_evento_por_slug', {'slug': evento.slug} ) }}">{{ evento.titulo }} </a>
 						</td>
 						<td>{{ evento.idioma }}</td>
 						<td>{{ evento.usuarios | length }}</td>
